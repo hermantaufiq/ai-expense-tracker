@@ -13,8 +13,9 @@ return new class extends Migration
     {
         Schema::create('ai_rules', function (Blueprint $table) {
             $table->id();
+            $table->foreignId('user_id')->nullable()->constrained()->onDelete('cascade');
             $table->foreignId('category_id')->constrained()->onDelete('cascade');
-            $table->string('keyword')->unique();
+            $table->string('keyword');
             $table->timestamps();
         });
     }
