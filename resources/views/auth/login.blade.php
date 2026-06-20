@@ -95,6 +95,16 @@
         .progress-bar { width: 100%; background: rgba(255,255,255,0.12); border-radius: 999px; height: 4px; margin-top: 8px; overflow: hidden; }
         .progress-fill-green { height: 4px; background: #4ade80; border-radius: 999px; width: 75%; }
         .progress-fill-red { height: 4px; background: #f87171; border-radius: 999px; width: 50%; }
+
+        .social-btn {
+            display: flex; align-items: center; justify-content: center; gap: 8px;
+            padding: 12px; border: 1px solid #e5e7eb; border-radius: 12px;
+            background: white; font-size: 14px; font-weight: 600; color: #475569;
+            cursor: pointer; transition: all 0.2s; font-family: 'Inter', sans-serif;
+        }
+        .social-btn:hover {
+            background: #f8fafc; border-color: #cbd5e1;
+        }
     </style>
 </head>
 <body style="min-height:100vh; display:flex;">
@@ -188,9 +198,28 @@
     <div style="width:100%; max-width:400px;">
 
         {{-- Header --}}
-        <div style="margin-bottom:32px;">
+        <div style="margin-bottom:28px;">
             <h2 style="font-size:26px; font-weight:800; color:#0f172a; margin:0 0 6px;">Selamat datang kembali! 👋</h2>
             <p style="font-size:14px; color:#64748b; margin:0;">Masuk untuk melanjutkan ke dashboard Anda</p>
+        </div>
+
+        {{-- Social Logins --}}
+        <div style="display:grid; grid-template-columns:1fr 1fr; gap:16px; margin-bottom:24px;">
+            <button type="button" class="social-btn">
+                <img src="https://upload.wikimedia.org/wikipedia/commons/c/c1/Google_%22G%22_logo.svg" alt="Google" style="width:18px; height:18px;">
+                Google
+            </button>
+            <button type="button" class="social-btn">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="black"><path d="M15.4 9.1c-.1-2.4 2-3.6 2.1-3.7-1.1-1.6-2.9-1.9-3.5-1.9-1.5-.2-3 .9-3.8.9-.8 0-2-.9-3.3-.9-1.7 0-3.3 1-4.2 2.6-1.8 3.1-.5 7.7 1.3 10.2.9 1.2 1.9 2.6 3.2 2.5 1.3-.1 1.8-.9 3.3-.9 1.5 0 2 .9 3.4.9 1.4 0 2.3-1.3 3.1-2.5 1-1.5 1.4-2.9 1.5-3-.1 0-2.8-1.1-2.8-4.2zM12.9 5.8c.7-.8 1.2-2 1.1-3.2-1.1 0-2.4.7-3.1 1.6-.6.8-1.2 1.9-1.1 3.1 1.2.1 2.4-.7 3.1-1.5z"/></svg>
+                Apple
+            </button>
+        </div>
+
+        {{-- Divider --}}
+        <div style="display:flex; align-items:center; gap:16px; margin-bottom:24px;">
+            <div style="flex:1; height:1px; background:#e2e8f0;"></div>
+            <span style="font-size:12px; color:#94a3b8; font-weight:500;">ATAU</span>
+            <div style="flex:1; height:1px; background:#e2e8f0;"></div>
         </div>
 
         {{-- Status / Error --}}
@@ -253,12 +282,7 @@
             </button>
         </form>
 
-        {{-- Divider --}}
-        <div style="display:flex; align-items:center; gap:16px; margin:24px 0;">
-            <div style="flex:1; height:1px; background:#e2e8f0;"></div>
-            <span style="font-size:12px; color:#94a3b8; font-weight:500;">atau</span>
-            <div style="flex:1; height:1px; background:#e2e8f0;"></div>
-        </div>
+
 
         {{-- Register --}}
         <p style="text-align:center; font-size:14px; color:#64748b; margin:0;">
