@@ -16,6 +16,8 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
     Route::resource('transactions', TransactionController::class);
     Route::resource('categories', CategoryController::class);
+    Route::get('/reports/export-pdf', [ReportController::class, 'exportPdf'])->name('reports.export-pdf');
+    Route::get('/reports/export-excel', [ReportController::class, 'exportExcel'])->name('reports.export-excel');
 });
 
 Route::middleware(['auth', 'is_admin'])->prefix('admin')->name('admin.')->group(function () {
