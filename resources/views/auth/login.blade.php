@@ -261,15 +261,9 @@
         </div>
 
         {{-- Register --}}
-        <p style="text-align:center; font-size:14px; color:#64748b; margin:0 0 12px;">
+        <p style="text-align:center; font-size:14px; color:#64748b; margin:0;">
             Belum punya akun?
             <a href="{{ route('register') }}" style="color:#2563eb; font-weight:600; text-decoration:none;">Daftar gratis →</a>
-        </p>
-
-        {{-- Admin Link --}}
-        <p style="text-align:center; font-size:12px; color:#94a3b8; margin:0;">
-            Seorang Admin?
-            <a href="{{ route('admin.login') }}" style="color:#6366f1; font-weight:500; text-decoration:none;">Masuk ke Admin Panel</a>
         </p>
     </div>
 </div>
