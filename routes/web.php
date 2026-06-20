@@ -25,6 +25,9 @@ Route::middleware(['auth', 'is_admin'])->prefix('admin')->name('admin.')->group(
     Route::get('/users', [App\Http\Controllers\Admin\AdminUserController::class, 'index'])->name('users.index');
     Route::post('/users/{user}/toggle-ban', [App\Http\Controllers\Admin\AdminUserController::class, 'toggleBan'])->name('users.toggle-ban');
     Route::post('/users/{user}/toggle-premium', [App\Http\Controllers\Admin\AdminUserController::class, 'togglePremium'])->name('users.toggle-premium');
+    Route::get('/ai-rules', [App\Http\Controllers\Admin\AdminAiRuleController::class, 'index'])->name('ai-rules.index');
+    Route::post('/ai-rules', [App\Http\Controllers\Admin\AdminAiRuleController::class, 'store'])->name('ai-rules.store');
+    Route::delete('/ai-rules/{aiRule}', [App\Http\Controllers\Admin\AdminAiRuleController::class, 'destroy'])->name('ai-rules.destroy');
 });
 
 Route::middleware('auth')->group(function () {
