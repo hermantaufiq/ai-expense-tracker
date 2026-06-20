@@ -172,14 +172,14 @@
 
         {{-- Social Logins --}}
         <div style="display:grid; grid-template-columns:1fr 1fr; gap:16px; margin-bottom:24px;">
-            <button type="button" class="social-btn">
+            <a href="{{ route('social.redirect', 'google') }}" style="text-decoration:none;" class="social-btn">
                 <img src="https://upload.wikimedia.org/wikipedia/commons/c/c1/Google_%22G%22_logo.svg" alt="Google" style="width:18px; height:18px;">
                 Google
-            </button>
-            <button type="button" class="social-btn">
+            </a>
+            <a href="{{ route('social.redirect', 'apple') }}" style="text-decoration:none;" class="social-btn">
                 <svg width="18" height="18" viewBox="0 0 24 24" fill="black"><path d="M15.4 9.1c-.1-2.4 2-3.6 2.1-3.7-1.1-1.6-2.9-1.9-3.5-1.9-1.5-.2-3 .9-3.8.9-.8 0-2-.9-3.3-.9-1.7 0-3.3 1-4.2 2.6-1.8 3.1-.5 7.7 1.3 10.2.9 1.2 1.9 2.6 3.2 2.5 1.3-.1 1.8-.9 3.3-.9 1.5 0 2 .9 3.4.9 1.4 0 2.3-1.3 3.1-2.5 1-1.5 1.4-2.9 1.5-3-.1 0-2.8-1.1-2.8-4.2zM12.9 5.8c.7-.8 1.2-2 1.1-3.2-1.1 0-2.4.7-3.1 1.6-.6.8-1.2 1.9-1.1 3.1 1.2.1 2.4-.7 3.1-1.5z"/></svg>
                 Apple
-            </button>
+            </a>
         </div>
 
         {{-- Divider --}}

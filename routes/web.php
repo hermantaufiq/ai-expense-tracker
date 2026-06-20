@@ -12,6 +12,10 @@ Route::get('/', function () {
     return redirect()->route('login');
 });
 
+// Socialite Routes
+Route::get('/auth/{provider}/redirect', [\App\Http\Controllers\Auth\SocialAuthController::class, 'redirect'])->name('social.redirect');
+Route::get('/auth/{provider}/callback', [\App\Http\Controllers\Auth\SocialAuthController::class, 'callback'])->name('social.callback');
+
 // ─── Admin Auth (tidak perlu login dulu) ───────────────────────────────────
 Route::prefix('admin')->name('admin.')->group(function () {
     Route::get('/login', [App\Http\Controllers\Admin\AdminAuthController::class, 'showLoginForm'])->name('login');
