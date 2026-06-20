@@ -12,13 +12,18 @@ class SocialAuthController extends Controller
 {
     public function redirect($provider)
     {
-        return Socialite::driver($provider)->redirect();
+        return Socialite::driver($provider)->stateless()->redirect();
     }
 
     public function callback($provider)
     {
         try {
-            $socialUser = Socialite::driver($provider)->user();
+            // Karena menggunakan Laragon/Localhost (cURL error 60), matikan verifikasi SSL
+            $socialUser = Socialite::driver($provider)
+                ->stateless()
+                ->setHttpClient(new \GuzzleHttp\Client(['verify' => false]))
+                ->user();
+            
             
             // Find existing user by provider ID or email
             $user = User::where($provider . '_id', $socialUser->getId())
@@ -51,6 +56,7 @@ class SocialAuthController extends Controller
             return redirect()->route('dashboard');
 
         } catch (\Exception $e) {
+            \Log::error('Socialite Error: ' . get_class($e) . ' - ' . $e->getMessage(), ['trace' => $e->getTraceAsString()]);
             return redirect()->route('login')->withErrors(['email' => 'Gagal login dengan ' . ucfirst($provider) . '. Pastikan kredensial di .env sudah diset atau coba lagi.']);
         }
     }
