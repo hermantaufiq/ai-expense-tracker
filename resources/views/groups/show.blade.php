@@ -125,7 +125,7 @@
 
             <div class="flex justify-end gap-3">
                 <x-secondary-button x-on:click="$dispatch('close')">Batal</x-secondary-button>
-                <x-blue-button>Undang</x-blue-button>
+                <x-primary-button>Undang</x-primary-button>
             </div>
         </form>
     </x-modal>
@@ -166,7 +166,7 @@
 
             <div class="flex justify-end gap-3 mt-6">
                 <x-secondary-button x-on:click="$dispatch('close')">Batal</x-secondary-button>
-                <x-blue-button>Simpan Transaksi</x-blue-button>
+                <x-primary-button>Simpan Transaksi</x-primary-button>
             </div>
         </form>
     </x-modal>

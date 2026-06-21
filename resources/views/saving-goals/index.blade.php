@@ -179,7 +179,7 @@
 
             <div class="flex justify-end gap-3">
                 <x-secondary-button x-on:click="$dispatch('close')">Batal</x-secondary-button>
-                <x-blue-button>🎯 Buat Target</x-blue-button>
+                <x-primary-button>🎯 Buat Target</x-primary-button>
             </div>
         </form>
     </x-modal>

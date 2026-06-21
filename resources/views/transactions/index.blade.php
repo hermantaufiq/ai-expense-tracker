@@ -190,9 +190,9 @@
                     {{ __('Batal') }}
                 </x-secondary-button>
 
-                <x-blue-button class="ml-3">
+                <x-primary-button class="ml-3">
                     {{ __('Simpan') }}
-                </x-blue-button>
+                </x-primary-button>
             </div>
         </form>
     </x-modal>
