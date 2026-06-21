@@ -127,7 +127,7 @@
 
             // Monthly Expense Line Chart
             const ctxLine = document.getElementById('monthlyExpenseChart').getContext('2d');
-            new Chart(ctxLine, {
+            window.lineChart = new Chart(ctxLine, {
                 type: 'line',
                 data: {
                     labels: {!! json_encode($monthlyExpenses['labels'] ?? []) !!},
@@ -182,7 +182,7 @@
 
             // Category Pie Chart
             const ctxPie = document.getElementById('categoryPieChart').getContext('2d');
-            new Chart(ctxPie, {
+            window.pieChart = new Chart(ctxPie, {
                 type: 'doughnut',
                 data: {
                     labels: {!! json_encode($pieChart['labels'] ?? []) !!},
@@ -219,6 +219,24 @@
                             }
                         }
                     }
+                }
+            });
+
+            // Listen for theme changes to update charts dynamically
+            window.addEventListener('theme-toggled', function(e) {
+                const isDark = e.detail.isDark;
+                const newTextColor = isDark ? '#e5e7eb' : '#374151';
+                const newGridColor = isDark ? '#374151' : '#e5e7eb';
+
+                Chart.defaults.color = newTextColor;
+
+                if (window.lineChart) {
+                    window.lineChart.options.scales.y.grid.color = newGridColor;
+                    window.lineChart.update();
+                }
+
+                if (window.pieChart) {
+                    window.pieChart.update();
                 }
             });
         });

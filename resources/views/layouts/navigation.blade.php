@@ -209,6 +209,11 @@
                 localStorage.setItem('color-theme', 'dark');
             }
         }
+
+        // Dispatch custom event to let charts know theme changed
+        window.dispatchEvent(new CustomEvent('theme-toggled', {
+            detail: { isDark: document.documentElement.classList.contains('dark') }
+        }));
     }
 
     var themeToggleBtn = document.getElementById('theme-toggle');
