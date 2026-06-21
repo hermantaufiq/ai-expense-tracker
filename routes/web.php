@@ -44,6 +44,9 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::resource('groups', \App\Http\Controllers\GroupController::class)->only(['index', 'store', 'show']);
     Route::post('/groups/{group}/invite', [\App\Http\Controllers\GroupController::class, 'invite'])->name('groups.invite');
     Route::post('/groups/{group}/transactions', [\App\Http\Controllers\GroupController::class, 'storeTransaction'])->name('groups.transactions.store');
+    Route::delete('/groups/{group}/leave', [\App\Http\Controllers\GroupController::class, 'leave'])->name('groups.leave');
+    Route::delete('/groups/{group}/members/{user}', [\App\Http\Controllers\GroupController::class, 'removeMember'])->name('groups.members.remove');
+    Route::delete('/groups/{group}', [\App\Http\Controllers\GroupController::class, 'destroy'])->name('groups.destroy');
 });
 
 Route::middleware(['auth', 'is_admin'])->prefix('admin')->name('admin.')->group(function () {
