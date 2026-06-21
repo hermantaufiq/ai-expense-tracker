@@ -47,6 +47,12 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::delete('/groups/{group}/leave', [\App\Http\Controllers\GroupController::class, 'leave'])->name('groups.leave');
     Route::delete('/groups/{group}/members/{user}', [\App\Http\Controllers\GroupController::class, 'removeMember'])->name('groups.members.remove');
     Route::delete('/groups/{group}', [\App\Http\Controllers\GroupController::class, 'destroy'])->name('groups.destroy');
+    Route::post('/groups/{group}/regenerate-invite', [\App\Http\Controllers\GroupController::class, 'regenerateInvite'])->name('groups.regenerate-invite');
+});
+
+// Join via invite link - only requires auth (not email verification)
+Route::middleware('auth')->group(function () {
+    Route::get('/groups/join/{token}', [\App\Http\Controllers\GroupController::class, 'joinViaLink'])->name('groups.join');
 });
 
 Route::middleware(['auth', 'is_admin'])->prefix('admin')->name('admin.')->group(function () {

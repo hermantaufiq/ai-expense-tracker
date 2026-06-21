@@ -103,6 +103,37 @@
                                 </li>
                             @endforeach
                         </ul>
+
+                        {{-- Invite Link Box (owner only) --}}
+                        @if($group->owner_id === auth()->id() && $inviteLink)
+                        <div class="mt-5 pt-5 border-t border-gray-100 dark:border-gray-700">
+                            <p class="text-xs font-semibold text-gray-700 dark:text-gray-300 mb-2">🔗 Link Undangan Grup</p>
+                            <p class="text-xs text-gray-500 dark:text-gray-400 mb-3">Bagikan link ini ke siapa saja. Mereka perlu login/daftar dahulu, lalu akan otomatis bergabung.</p>
+                            <div class="flex gap-2">
+                                <input
+                                    id="invite-link-input"
+                                    type="text"
+                                    value="{{ $inviteLink }}"
+                                    readonly
+                                    class="flex-1 text-xs rounded-lg border-gray-300 dark:border-gray-600 dark:bg-gray-900 dark:text-gray-300 bg-gray-50 focus:border-blue-400 focus:ring-blue-400 py-2 px-3"
+                                />
+                                <button
+                                    onclick="navigator.clipboard.writeText(document.getElementById('invite-link-input').value); this.textContent='✅'; setTimeout(() => this.textContent='📋', 2000);"
+                                    class="px-3 py-2 bg-blue-600 hover:bg-blue-700 text-white text-xs font-bold rounded-lg transition shrink-0"
+                                    title="Salin link">
+                                    📋
+                                </button>
+                            </div>
+                            <form action="{{ route('groups.regenerate-invite', $group) }}" method="POST"
+                                onsubmit="return confirm('Link lama akan tidak berlaku. Lanjutkan?')"
+                                class="mt-2">
+                                @csrf
+                                <button type="submit" class="text-xs text-gray-400 hover:text-rose-500 dark:hover:text-rose-400 transition underline">
+                                    🔄 Buat link baru (nonaktifkan link lama)
+                                </button>
+                            </form>
+                        </div>
+                        @endif
                     </div>
                 </div>
 

@@ -6,10 +6,20 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Support\Str;
 
 class Group extends Model
 {
-    protected $fillable = ['name', 'owner_id'];
+    protected $fillable = ['name', 'owner_id', 'invite_token'];
+
+    protected static function booted(): void
+    {
+        static::creating(function (Group $group) {
+            if (!$group->invite_token) {
+                $group->invite_token = Str::random(32);
+            }
+        });
+    }
 
     public function owner(): BelongsTo
     {
