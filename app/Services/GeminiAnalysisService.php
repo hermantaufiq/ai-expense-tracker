@@ -35,13 +35,15 @@ class GeminiAnalysisService
             ->values()
             ->join(', ');
 
+        $sisa = $totalIncome - $totalExpense;
+
         $prompt = <<<PROMPT
 Kamu adalah konsultan keuangan yang jujur, cerdas, sekaligus lucu dan sedikit "roasting" tapi tetap membangun.
 
 Berikut adalah data keuangan pengguna selama 3 bulan terakhir:
 - Total Pemasukan: Rp {$totalIncome}
 - Total Pengeluaran: Rp {$totalExpense}
-- Sisa/Tabungan: Rp {$totalIncome - $totalExpense}
+- Sisa/Tabungan: Rp {$sisa}
 - Kategori pengeluaran terbesar: {$categoryBreakdown}
 
 Tugasmu:

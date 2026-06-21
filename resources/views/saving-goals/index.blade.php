@@ -3,7 +3,7 @@
         <div class="flex justify-between items-center">
             <h2 class="font-semibold text-xl text-gray-800 dark:text-gray-200 leading-tight">🎯 Target Menabung</h2>
             <button x-data="" x-on:click.prevent="$dispatch('open-modal', 'add-goal')"
-                class="inline-flex items-center gap-2 px-4 py-2 bg-indigo-600 hover:bg-indigo-700 text-white font-semibold rounded-lg shadow transition text-sm">
+                class="inline-flex items-center gap-2 px-5 py-2.5 bg-primary-600 hover:bg-primary-700 text-white font-semibold rounded-xl shadow-sm hover:shadow-md transition text-sm">
                 <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6"/></svg>
                 Buat Target Baru
             </button>
@@ -21,12 +21,12 @@
 
             {{-- Empty State --}}
             @if($goals->isEmpty())
-                <div class="bg-white dark:bg-gray-800 rounded-xl shadow-md p-16 text-center">
+                <div class="bg-white dark:bg-gray-800 rounded-3xl shadow-soft p-16 text-center">
                     <p class="text-5xl mb-4">🐷</p>
-                    <h3 class="text-lg font-semibold text-gray-700 dark:text-gray-200 mb-2">Belum ada target menabung</h3>
-                    <p class="text-gray-400 text-sm mb-6">Mulai buat target menabungmu sekarang — laptop baru, liburan, atau apapun impianmu!</p>
+                    <h3 class="text-xl font-bold text-gray-900 dark:text-gray-100 mb-2">Belum ada target menabung</h3>
+                    <p class="text-gray-500 text-sm mb-6">Mulai buat target menabungmu sekarang — laptop baru, liburan, atau apapun impianmu!</p>
                     <button x-data="" x-on:click.prevent="$dispatch('open-modal', 'add-goal')"
-                        class="inline-flex items-center gap-2 px-5 py-2.5 bg-indigo-600 hover:bg-indigo-700 text-white font-semibold rounded-lg shadow transition text-sm">
+                        class="inline-flex items-center gap-2 px-6 py-3 bg-primary-600 hover:bg-primary-700 text-white font-semibold rounded-xl shadow-md transition-all hover:scale-105">
                         🎯 Buat Target Pertama
                     </button>
                 </div>
@@ -43,7 +43,7 @@
                             $daysLeft = $goal->days_left;
                             $monthlyNeeded = $goal->monthly_saving_needed;
                         @endphp
-                        <div class="bg-white dark:bg-gray-800 rounded-xl shadow-md p-6 hover:shadow-lg transition">
+                        <div class="bg-white dark:bg-gray-800 rounded-3xl shadow-soft p-6 hover:shadow-soft-lg transition duration-300">
                             <div class="flex justify-between items-start mb-4">
                                 <div class="flex items-center gap-3">
                                     <span class="text-3xl">{{ $goal->icon }}</span>
@@ -74,8 +74,8 @@
                                     <span class="font-semibold text-gray-800 dark:text-white">{{ $pct }}%</span>
                                     <span class="text-gray-400">Rp {{ number_format($goal->target_amount, 0, ',', '.') }}</span>
                                 </div>
-                                <div class="w-full bg-gray-200 dark:bg-gray-700 rounded-full h-3">
-                                    <div class="h-3 rounded-full bg-gradient-to-r from-indigo-500 to-purple-500 transition-all duration-700"
+                                <div class="w-full bg-gray-100 dark:bg-gray-700 rounded-full h-3">
+                                    <div class="h-3 rounded-full bg-gradient-to-r from-primary-500 to-primary-700 transition-all duration-700"
                                         style="width: {{ $pct }}%"></div>
                                 </div>
                             </div>
@@ -84,7 +84,7 @@
                             <div class="flex justify-between text-xs text-gray-500 dark:text-gray-400 mb-4">
                                 <span>Sisa: <strong class="text-gray-700 dark:text-gray-300">Rp {{ number_format($goal->remaining, 0, ',', '.') }}</strong></span>
                                 @if($monthlyNeeded)
-                                    <span>Nabung/bln: <strong class="text-indigo-600 dark:text-indigo-400">Rp {{ number_format($monthlyNeeded, 0, ',', '.') }}</strong></span>
+                                    <span>Nabung/bln: <strong class="text-primary-600 dark:text-primary-400">Rp {{ number_format($monthlyNeeded, 0, ',', '.') }}</strong></span>
                                 @endif
                             </div>
 
@@ -92,10 +92,10 @@
                             <form method="POST" action="{{ route('saving-goals.add-funds', $goal) }}" class="flex gap-2">
                                 @csrf
                                 <input type="number" name="amount" min="1000" step="1000" placeholder="Tambah dana (Rp)"
-                                    class="flex-1 rounded-lg border-gray-300 dark:border-gray-700 dark:bg-gray-900 dark:text-gray-300 text-sm shadow-sm focus:border-indigo-500 focus:ring-indigo-500 min-w-0"
+                                    class="flex-1 rounded-xl border-gray-300 dark:border-gray-700 dark:bg-gray-900 dark:text-gray-300 text-sm shadow-sm focus:border-primary-500 focus:ring-primary-500 min-w-0"
                                     required>
                                 <button type="submit"
-                                    class="px-4 py-2 bg-indigo-600 hover:bg-indigo-700 text-white font-semibold rounded-lg text-sm transition whitespace-nowrap">
+                                    class="px-5 py-2 bg-primary-600 hover:bg-primary-700 text-white font-semibold rounded-xl text-sm transition shadow-sm whitespace-nowrap">
                                     + Tabung
                                 </button>
                             </form>
@@ -112,7 +112,7 @@
                     <h3 class="text-sm font-semibold text-emerald-600 dark:text-emerald-400 uppercase tracking-wider mb-3">✅ Sudah Tercapai ({{ $completedGoals->count() }})</h3>
                     <div class="grid grid-cols-1 md:grid-cols-2 gap-5">
                         @foreach($completedGoals as $goal)
-                        <div class="bg-emerald-50 dark:bg-emerald-900/20 border border-emerald-200 dark:border-emerald-800 rounded-xl p-6 flex items-center gap-4">
+                        <div class="bg-emerald-50 dark:bg-emerald-900/20 border border-emerald-200 dark:border-emerald-800 rounded-3xl p-6 flex items-center gap-4">
                             <span class="text-4xl">{{ $goal->icon }}</span>
                             <div class="flex-1">
                                 <h4 class="font-bold text-emerald-800 dark:text-emerald-200">{{ $goal->name }} 🎉</h4>
@@ -188,9 +188,9 @@
     function selectIcon(emoji) {
         document.getElementById('selected-icon').value = emoji;
         document.querySelectorAll('.icon-btn').forEach(btn => {
-            btn.classList.toggle('border-indigo-500', btn.dataset.emoji === emoji);
-            btn.classList.toggle('bg-indigo-50', btn.dataset.emoji === emoji);
-            btn.classList.toggle('dark:bg-indigo-900/30', btn.dataset.emoji === emoji);
+            btn.classList.toggle('border-primary-500', btn.dataset.emoji === emoji);
+            btn.classList.toggle('bg-primary-50', btn.dataset.emoji === emoji);
+            btn.classList.toggle('dark:bg-primary-900/30', btn.dataset.emoji === emoji);
             btn.classList.toggle('border-gray-200', btn.dataset.emoji !== emoji);
             btn.classList.toggle('dark:border-gray-700', btn.dataset.emoji !== emoji);
         });

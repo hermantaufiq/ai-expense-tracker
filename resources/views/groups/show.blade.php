@@ -4,7 +4,7 @@
             <h2 class="font-semibold text-xl text-gray-800 dark:text-gray-200 leading-tight">
                 Grup: {{ $group->name }}
             </h2>
-            <a href="{{ route('groups.index') }}" class="text-sm text-indigo-600 dark:text-indigo-400 hover:underline">&larr; Kembali</a>
+            <a href="{{ route('groups.index') }}" class="text-sm text-primary-600 dark:text-primary-400 hover:underline">&larr; Kembali</a>
         </div>
     </x-slot>
 
@@ -26,7 +26,7 @@
             <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
                 {{-- Left: Group Summary & Members --}}
                 <div class="space-y-6">
-                    <div class="bg-white dark:bg-gray-800 rounded-xl shadow-md p-6">
+                    <div class="bg-white dark:bg-gray-800 rounded-2xl shadow-soft p-6">
                         <h3 class="font-bold text-gray-900 dark:text-white mb-4">Ringkasan Grup</h3>
                         <div class="space-y-3">
                             <div class="flex justify-between items-center p-3 bg-rose-50 dark:bg-rose-900/20 rounded-lg">
@@ -40,11 +40,11 @@
                         </div>
                     </div>
 
-                    <div class="bg-white dark:bg-gray-800 rounded-xl shadow-md p-6">
+                    <div class="bg-white dark:bg-gray-800 rounded-2xl shadow-soft p-6">
                         <div class="flex justify-between items-center mb-4">
                             <h3 class="font-bold text-gray-900 dark:text-white">Anggota ({{ $group->members->count() }})</h3>
                             @if($group->owner_id === auth()->id())
-                                <button x-data="" x-on:click.prevent="$dispatch('open-modal', 'invite-member')" class="text-xs text-indigo-600 dark:text-indigo-400 font-semibold hover:underline">+ Undang</button>
+                                <button x-data="" x-on:click.prevent="$dispatch('open-modal', 'invite-member')" class="text-xs text-primary-600 dark:text-primary-400 font-semibold hover:underline bg-primary-50 dark:bg-primary-900/30 px-2.5 py-1 rounded-md">+ Undang</button>
                             @endif
                         </div>
                         <ul class="space-y-3">
@@ -65,10 +65,10 @@
 
                 {{-- Right: Transactions List & Add Form --}}
                 <div class="md:col-span-2 space-y-6">
-                    <div class="bg-white dark:bg-gray-800 rounded-xl shadow-md overflow-hidden">
-                        <div class="p-6 border-b border-gray-200 dark:border-gray-700 flex justify-between items-center">
+                    <div class="bg-white dark:bg-gray-800 rounded-2xl shadow-soft overflow-hidden">
+                        <div class="p-6 border-b border-gray-100 dark:border-gray-700 flex justify-between items-center">
                             <h3 class="font-bold text-gray-900 dark:text-white">Transaksi Bersama</h3>
-                            <button x-data="" x-on:click.prevent="$dispatch('open-modal', 'add-group-trx')" class="px-3 py-1.5 bg-indigo-600 text-white text-xs font-semibold rounded-lg hover:bg-indigo-700 transition">
+                            <button x-data="" x-on:click.prevent="$dispatch('open-modal', 'add-group-trx')" class="px-4 py-2 bg-primary-600 text-white text-xs font-bold rounded-xl hover:bg-primary-700 transition shadow-sm">
                                 + Catat Transaksi
                             </button>
                         </div>
@@ -140,7 +140,7 @@
             <div class="space-y-4">
                 <div>
                     <x-input-label value="Kategori" />
-                    <select name="category_id" class="mt-1 block w-full rounded-md border-gray-300 dark:border-gray-700 dark:bg-gray-900 dark:text-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 text-sm" required>
+                    <select name="category_id" class="mt-1 block w-full rounded-xl border-gray-300 dark:border-gray-700 dark:bg-gray-900 dark:text-gray-300 shadow-sm focus:border-primary-500 focus:ring-primary-500 text-sm" required>
                         <option value="">-- Pilih --</option>
                         @foreach($categories as $cat)
                             <option value="{{ $cat->id }}">{{ $cat->icon }} {{ $cat->name }} ({{ ucfirst($cat->type) }})</option>
