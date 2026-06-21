@@ -35,6 +35,8 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('/analysis', [\App\Http\Controllers\AnalysisController::class, 'index'])->name('analysis.index');
     Route::post('/analysis/roast', [\App\Http\Controllers\AnalysisController::class, 'roast'])->name('analysis.roast');
     Route::post('/analysis/tips', [\App\Http\Controllers\AnalysisController::class, 'tips'])->name('analysis.tips');
+    Route::resource('saving-goals', \App\Http\Controllers\SavingGoalController::class)->only(['index', 'store', 'destroy']);
+    Route::post('/saving-goals/{savingGoal}/add-funds', [\App\Http\Controllers\SavingGoalController::class, 'addFunds'])->name('saving-goals.add-funds');
 });
 
 Route::middleware(['auth', 'is_admin'])->prefix('admin')->name('admin.')->group(function () {
