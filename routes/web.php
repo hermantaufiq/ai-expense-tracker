@@ -30,6 +30,11 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::resource('categories', CategoryController::class);
     Route::get('/reports/export-pdf', [ReportController::class, 'exportPdf'])->name('reports.export-pdf');
     Route::get('/reports/export-excel', [ReportController::class, 'exportExcel'])->name('reports.export-excel');
+    Route::get('/reports', [\App\Http\Controllers\FullReportController::class, 'index'])->name('reports.index');
+    Route::resource('budgets', \App\Http\Controllers\BudgetController::class)->only(['index', 'store', 'update', 'destroy']);
+    Route::get('/analysis', [\App\Http\Controllers\AnalysisController::class, 'index'])->name('analysis.index');
+    Route::post('/analysis/roast', [\App\Http\Controllers\AnalysisController::class, 'roast'])->name('analysis.roast');
+    Route::post('/analysis/tips', [\App\Http\Controllers\AnalysisController::class, 'tips'])->name('analysis.tips');
 });
 
 Route::middleware(['auth', 'is_admin'])->prefix('admin')->name('admin.')->group(function () {

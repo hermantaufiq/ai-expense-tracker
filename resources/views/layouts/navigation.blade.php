@@ -26,6 +26,15 @@
                         <x-nav-link :href="route('transactions.index')" :active="request()->routeIs('transactions.*')">
                             {{ __('Transaksi') }}
                         </x-nav-link>
+                        <x-nav-link :href="route('budgets.index')" :active="request()->routeIs('budgets.*')">
+                            {{ __('Budget') }}
+                        </x-nav-link>
+                        <x-nav-link :href="route('reports.index')" :active="request()->routeIs('reports.index')">
+                            {{ __('Laporan') }}
+                        </x-nav-link>
+                        <x-nav-link :href="route('analysis.index')" :active="request()->routeIs('analysis.*')">
+                            {{ __('Analisis AI') }}
+                        </x-nav-link>
                     @endif
                 </div>
             </div>
@@ -92,6 +101,15 @@
                 </x-responsive-nav-link>
                 <x-responsive-nav-link :href="route('transactions.index')" :active="request()->routeIs('transactions.*')">
                     {{ __('Transaksi') }}
+                </x-responsive-nav-link>
+                <x-responsive-nav-link :href="route('budgets.index')" :active="request()->routeIs('budgets.*')">
+                    {{ __('Budget') }}
+                </x-responsive-nav-link>
+                <x-responsive-nav-link :href="route('reports.index')" :active="request()->routeIs('reports.index')">
+                    {{ __('Laporan') }}
+                </x-responsive-nav-link>
+                <x-responsive-nav-link :href="route('analysis.index')" :active="request()->routeIs('analysis.*')">
+                    {{ __('Analisis AI') }}
                 </x-responsive-nav-link>
             @endif
         </div>
