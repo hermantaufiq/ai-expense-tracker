@@ -37,6 +37,18 @@ class User extends Authenticatable
         return $this->hasMany(Transaction::class);
     }
 
+    public function savingGoals(): HasMany
+    {
+        return $this->hasMany(SavingGoal::class);
+    }
+
+    public function groups(): BelongsToMany
+    {
+        return $this->belongsToMany(Group::class, 'group_users')
+                    ->withPivot('role')
+                    ->withTimestamps();
+    }
+
     public function categories()
     {
         return $this->hasMany(Category::class);

@@ -40,6 +40,10 @@ Route::middleware(['auth', 'verified'])->group(function () {
     
     Route::get('/import', [\App\Http\Controllers\ImportController::class, 'index'])->name('import.index');
     Route::post('/import', [\App\Http\Controllers\ImportController::class, 'process'])->name('import.process');
+
+    Route::resource('groups', \App\Http\Controllers\GroupController::class)->only(['index', 'store', 'show']);
+    Route::post('/groups/{group}/invite', [\App\Http\Controllers\GroupController::class, 'invite'])->name('groups.invite');
+    Route::post('/groups/{group}/transactions', [\App\Http\Controllers\GroupController::class, 'storeTransaction'])->name('groups.transactions.store');
 });
 
 Route::middleware(['auth', 'is_admin'])->prefix('admin')->name('admin.')->group(function () {
