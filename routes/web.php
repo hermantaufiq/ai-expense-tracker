@@ -37,6 +37,9 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::post('/analysis/tips', [\App\Http\Controllers\AnalysisController::class, 'tips'])->name('analysis.tips');
     Route::resource('saving-goals', \App\Http\Controllers\SavingGoalController::class)->only(['index', 'store', 'destroy']);
     Route::post('/saving-goals/{savingGoal}/add-funds', [\App\Http\Controllers\SavingGoalController::class, 'addFunds'])->name('saving-goals.add-funds');
+    
+    Route::get('/import', [\App\Http\Controllers\ImportController::class, 'index'])->name('import.index');
+    Route::post('/import', [\App\Http\Controllers\ImportController::class, 'process'])->name('import.process');
 });
 
 Route::middleware(['auth', 'is_admin'])->prefix('admin')->name('admin.')->group(function () {

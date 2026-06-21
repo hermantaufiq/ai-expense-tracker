@@ -38,6 +38,9 @@
                         <x-nav-link :href="route('saving-goals.index')" :active="request()->routeIs('saving-goals.*')">
                             {{ __('Tabungan') }}
                         </x-nav-link>
+                        <x-nav-link :href="route('import.index')" :active="request()->routeIs('import.*')">
+                            {{ __('Import Mutasi') }}
+                        </x-nav-link>
                     @endif
                 </div>
             </div>
@@ -123,6 +126,9 @@
                 </x-responsive-nav-link>
                 <x-responsive-nav-link :href="route('saving-goals.index')" :active="request()->routeIs('saving-goals.*')">
                     {{ __('Tabungan') }}
+                </x-responsive-nav-link>
+                <x-responsive-nav-link :href="route('import.index')" :active="request()->routeIs('import.*')">
+                    {{ __('Import Mutasi') }}
                 </x-responsive-nav-link>
             @endif
         </div>
