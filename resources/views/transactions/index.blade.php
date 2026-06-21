@@ -14,15 +14,14 @@
                         <svg class="w-4 h-4 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 21h10a2 2 0 002-2V9.414a1 1 0 00-.293-.707l-5.414-5.414A1 1 0 0012.586 3H7a2 2 0 00-2 2v14a2 2 0 002 2z"/></svg>
                         PDF
                     </a>
-                @else
-                    <span class="inline-flex items-center bg-amber-100 text-amber-800 dark:bg-amber-900/50 dark:text-amber-300 text-xs font-medium px-3 py-1.5 rounded-full">
-                        <svg class="w-3 h-3 mr-1" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M5 9V7a5 5 0 0110 0v2a2 2 0 012 2v5a2 2 0 01-2 2H5a2 2 0 01-2-2v-5a2 2 0 012-2zm8-2v2H7V7a3 3 0 016 0z" clip-rule="evenodd"/></svg>
-                        Export: Premium Only
-                    </span>
                 @endif
-                <button x-data="" x-on:click.prevent="$dispatch('open-modal', 'add-transaction')" class="bg-indigo-600 hover:bg-indigo-700 text-white font-bold py-2 px-4 rounded-lg shadow-md transition flex items-center text-sm">
+                <button x-data="" x-on:click.prevent="$dispatch('open-modal', 'add-ai-transaction')" class="bg-gradient-to-r from-purple-600 to-indigo-600 hover:from-purple-700 hover:to-indigo-700 text-white font-bold py-2 px-4 rounded-lg shadow-md transition flex items-center text-sm">
+                    <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path></svg>
+                    Input Cepat AI
+                </button>
+                <button x-data="" x-on:click.prevent="$dispatch('open-modal', 'add-transaction')" class="bg-gray-800 dark:bg-gray-200 hover:bg-gray-700 dark:hover:bg-white text-white dark:text-gray-800 font-bold py-2 px-4 rounded-lg shadow-md transition flex items-center text-sm">
                     <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6"></path></svg>
-                    Tambah Transaksi
+                    Manual
                 </button>
             </div>
         </div>
@@ -38,6 +37,16 @@
                     <div>
                         <p class="font-semibold text-amber-800 dark:text-amber-300">Limit Transaksi Tercapai!</p>
                         <p class="text-sm text-amber-700 dark:text-amber-400">{{ $errors->first('limit') }}</p>
+                    </div>
+                </div>
+            @endif
+
+            @if($errors->has('ai_prompt'))
+                <div class="mb-4 p-4 bg-rose-50 dark:bg-rose-900/30 border border-rose-300 dark:border-rose-700 rounded-xl flex items-start gap-3">
+                    <svg class="w-5 h-5 text-rose-500 shrink-0 mt-0.5" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM8.707 7.293a1 1 0 00-1.414 1.414L8.586 10l-1.293 1.293a1 1 0 101.414 1.414L10 11.414l1.293 1.293a1 1 0 001.414-1.414L11.414 10l1.293-1.293a1 1 0 00-1.414-1.414L10 8.586 8.707 7.293z" clip-rule="evenodd"/></svg>
+                    <div>
+                        <p class="font-semibold text-rose-800 dark:text-rose-300">Error AI</p>
+                        <p class="text-sm text-rose-700 dark:text-rose-400">{{ $errors->first('ai_prompt') }}</p>
                     </div>
                 </div>
             @endif
@@ -184,6 +193,43 @@
                 <x-primary-button class="ml-3">
                     {{ __('Simpan') }}
                 </x-primary-button>
+            </div>
+        </form>
+    </x-modal>
+
+    <!-- Modal Add AI Transaction -->
+    <x-modal name="add-ai-transaction" :show="$errors->has('ai_prompt')" focusable>
+        <form method="post" action="{{ route('transactions.storeAi') }}" class="p-6">
+            @csrf
+
+            <div class="flex items-center gap-3 mb-4">
+                <div class="p-2 bg-gradient-to-r from-purple-100 to-indigo-100 dark:from-purple-900/50 dark:to-indigo-900/50 rounded-lg">
+                    <svg class="w-6 h-6 text-purple-600 dark:text-purple-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path></svg>
+                </div>
+                <h2 class="text-lg font-bold text-gray-900 dark:text-gray-100">
+                    {{ __('Input Transaksi dengan AI') }}
+                </h2>
+            </div>
+
+            <p class="mt-1 text-sm text-gray-600 dark:text-gray-400">
+                {{ __('Ketikkan pengeluaran atau pemasukan Anda secara natural. AI akan otomatis menebak jumlah, deskripsi, tanggal, dan kategorinya.') }}
+            </p>
+
+            <div class="mt-6">
+                <x-input-label for="ai_prompt" value="{{ __('Prompt Teks') }}" />
+                <textarea id="ai_prompt" name="ai_prompt" rows="3" class="mt-1 block w-full border-gray-300 dark:border-gray-700 dark:bg-gray-900 dark:text-gray-300 focus:border-indigo-500 focus:ring-indigo-500 rounded-md shadow-sm" placeholder="Contoh: Kemarin malam habis 55rb buat beli sate madura pakai gofood" required>{{ old('ai_prompt') }}</textarea>
+                <p class="mt-2 text-xs text-gray-500 dark:text-gray-500">Kata kunci opsional: besok, kemarin, lusa, minggu lalu, dll.</p>
+            </div>
+
+            <div class="mt-6 flex justify-end">
+                <x-secondary-button x-on:click="$dispatch('close')">
+                    {{ __('Batal') }}
+                </x-secondary-button>
+
+                <button type="submit" class="ml-3 inline-flex items-center px-4 py-2 bg-gradient-to-r from-purple-600 to-indigo-600 border border-transparent rounded-md font-semibold text-xs text-white uppercase tracking-widest hover:from-purple-700 hover:to-indigo-700 focus:bg-indigo-700 active:bg-indigo-900 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 dark:focus:ring-offset-gray-800 transition ease-in-out duration-150">
+                    <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>
+                    {{ __('Proses AI') }}
+                </button>
             </div>
         </form>
     </x-modal>

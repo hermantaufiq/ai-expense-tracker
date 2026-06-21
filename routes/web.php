@@ -25,6 +25,7 @@ Route::prefix('admin')->name('admin.')->group(function () {
 
 Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
+    Route::post('/transactions/ai', [TransactionController::class, 'storeAi'])->name('transactions.storeAi');
     Route::resource('transactions', TransactionController::class);
     Route::resource('categories', CategoryController::class);
     Route::get('/reports/export-pdf', [ReportController::class, 'exportPdf'])->name('reports.export-pdf');

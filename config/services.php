@@ -34,6 +34,10 @@ return [
         'redirect' => env('GOOGLE_REDIRECT_URI', '/auth/google/callback'),
     ],
 
+    'gemini' => [
+        'api_key' => env('GEMINI_API_KEY'),
+    ],
+
     'apple' => [
         'client_id' => env('APPLE_CLIENT_ID'),
         'client_secret' => env('APPLE_CLIENT_SECRET'),

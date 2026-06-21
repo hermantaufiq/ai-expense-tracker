@@ -10,10 +10,12 @@ use Illuminate\Http\Request;
 class TransactionController extends Controller
 {
     protected $categorizationService;
+    protected $geminiService;
 
-    public function __construct(CategorizationService $categorizationService)
+    public function __construct(CategorizationService $categorizationService, \App\Services\GeminiTransactionService $geminiService)
     {
         $this->categorizationService = $categorizationService;
+        $this->geminiService = $geminiService;
     }
 
     public function index(Request $request)
@@ -76,6 +78,59 @@ class TransactionController extends Controller
         ]);
 
         return redirect()->route('transactions.index')->with('success', 'Transaction added successfully.');
+    }
+
+    public function storeAi(Request $request)
+    {
+        $user = auth()->user();
+
+        if (!$user->is_premium) {
+            $currentMonthCount = Transaction::where('user_id', $user->id)
+                ->whereMonth('created_at', now()->month)
+                ->whereYear('created_at', now()->year)
+                ->count();
+            
+            if ($currentMonthCount >= 30) {
+                return redirect()->back()->withErrors(['limit' => 'Limit transaksi bulanan tercapai (Maksimal 30). Silakan Upgrade ke Premium!']);
+            }
+        }
+
+        $request->validate([
+            'ai_prompt' => 'required|string|max:500',
+        ]);
+
+        $parsed = $this->geminiService->parseTransaction($request->ai_prompt);
+
+        if (!$parsed) {
+            return redirect()->back()->withErrors(['ai_prompt' => 'Gagal memproses teks. Pastikan GEMINI_API_KEY sudah di-set atau coba kalimat lain.']);
+        }
+
+        $categoryId = $parsed['category_id'] ?? null;
+
+        if (!$categoryId && !empty($parsed['new_category_name'])) {
+            $category = Category::firstOrCreate([
+                'name' => $parsed['new_category_name'],
+                'user_id' => $user->id,
+            ], [
+                'type' => $parsed['type'] ?? 'expense',
+                'color_code' => sprintf('#%06X', mt_rand(0, 0xFFFFFF)),
+            ]);
+            $categoryId = $category->id;
+        }
+
+        if (!$categoryId) {
+            $categoryId = $this->categorizationService->detectCategory($parsed['description'] ?? $request->ai_prompt);
+        }
+
+        Transaction::create([
+            'user_id' => $user->id,
+            'category_id' => $categoryId,
+            'amount' => $parsed['amount'] ?? 0,
+            'description' => $parsed['description'] ?? $request->ai_prompt,
+            'transaction_date' => $parsed['transaction_date'] ?? now()->format('Y-m-d'),
+        ]);
+
+        return redirect()->route('transactions.index')->with('success', 'Transaksi berhasil ditambahkan melalui AI.');
     }
 
     public function update(Request $request, Transaction $transaction)
