@@ -10,10 +10,10 @@
             <!-- KPI Cards -->
             <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
                 <!-- Balance Card -->
-                <div class="bg-gradient-to-r from-primary-600 to-primary-800 rounded-3xl shadow-soft-lg p-6 text-white hover:scale-[1.02] transition-transform duration-300">
+                <div class="bg-gradient-to-r from-blue-600 to-blue-800 rounded-3xl shadow-soft-lg p-6 text-white hover:scale-[1.02] transition-transform duration-300">
                     <div class="flex items-center justify-between">
                         <div>
-                            <p class="text-sm font-medium text-primary-100">Total Balance</p>
+                            <p class="text-sm font-medium text-blue-100">Total Balance</p>
                             <p class="text-3xl font-bold mt-2">Rp {{ number_format($balance, 2, ',', '.') }}</p>
                         </div>
                         <div class="p-4 bg-white/20 rounded-full backdrop-blur-sm">
@@ -72,7 +72,7 @@
             <div class="bg-white dark:bg-gray-800 rounded-2xl shadow-soft overflow-hidden mb-8">
                 <div class="p-6 border-b border-gray-100 dark:border-gray-700 flex justify-between items-center bg-white dark:bg-gray-800">
                     <h3 class="text-lg font-bold text-gray-900 dark:text-white">Transaksi Terbaru</h3>
-                    <a href="{{ route('transactions.index') }}" class="text-sm font-semibold text-primary-600 hover:text-primary-700 dark:text-primary-400 dark:hover:text-primary-300">Lihat Semua &rarr;</a>
+                    <a href="{{ route('transactions.index') }}" class="text-sm font-semibold text-blue-600 hover:text-blue-700 dark:text-blue-400 dark:hover:text-blue-300">Lihat Semua &rarr;</a>
                 </div>
                 <div class="overflow-x-auto">
                     <table class="min-w-full divide-y divide-gray-200 dark:divide-gray-700">

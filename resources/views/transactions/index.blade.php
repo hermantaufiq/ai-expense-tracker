@@ -15,11 +15,11 @@
                         PDF
                     </a>
                 @endif
-                <button x-data="" x-on:click.prevent="$dispatch('open-modal', 'add-ai-transaction')" class="bg-gradient-to-r from-primary-500 to-primary-700 hover:from-primary-600 hover:to-primary-800 text-white font-bold py-2.5 px-5 rounded-xl shadow-md transition-all flex items-center text-sm hover:scale-105">
+                <button x-data="" x-on:click.prevent="$dispatch('open-modal', 'add-ai-transaction')" class="bg-gradient-to-r from-blue-500 to-blue-700 hover:from-blue-600 hover:to-blue-800 text-white font-bold py-2.5 px-5 rounded-xl shadow-md transition-all flex items-center text-sm hover:scale-105">
                     <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path></svg>
                     Input Cepat AI
                 </button>
-                <button x-data="" x-on:click.prevent="$dispatch('open-modal', 'add-transaction')" class="bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 hover:border-primary-500 hover:text-primary-600 text-gray-700 dark:text-gray-300 font-bold py-2.5 px-5 rounded-xl shadow-sm transition-all flex items-center text-sm">
+                <button x-data="" x-on:click.prevent="$dispatch('open-modal', 'add-transaction')" class="bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 hover:border-blue-500 hover:text-blue-600 text-gray-700 dark:text-gray-300 font-bold py-2.5 px-5 rounded-xl shadow-sm transition-all flex items-center text-sm">
                     <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6"></path></svg>
                     Manual
                 </button>
@@ -56,11 +56,11 @@
                 <form method="GET" action="{{ route('transactions.index') }}" class="grid grid-cols-1 md:grid-cols-4 gap-4">
                     <div>
                         <label for="search" class="block text-sm font-medium text-gray-700 dark:text-gray-300">Cari</label>
-                        <input type="text" name="search" id="search" value="{{ request('search') }}" placeholder="Cari deskripsi..." class="mt-1 block w-full rounded-xl border-gray-300 dark:border-gray-700 dark:bg-gray-900 dark:text-gray-300 shadow-sm focus:border-primary-500 focus:ring-primary-500 sm:text-sm transition">
+                        <input type="text" name="search" id="search" value="{{ request('search') }}" placeholder="Cari deskripsi..." class="mt-1 block w-full rounded-xl border-gray-300 dark:border-gray-700 dark:bg-gray-900 dark:text-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 sm:text-sm transition">
                     </div>
                     <div>
                         <label for="category_id" class="block text-sm font-medium text-gray-700 dark:text-gray-300">Kategori</label>
-                        <select name="category_id" id="category_id" class="mt-1 block w-full rounded-xl border-gray-300 dark:border-gray-700 dark:bg-gray-900 dark:text-gray-300 shadow-sm focus:border-primary-500 focus:ring-primary-500 sm:text-sm transition">
+                        <select name="category_id" id="category_id" class="mt-1 block w-full rounded-xl border-gray-300 dark:border-gray-700 dark:bg-gray-900 dark:text-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 sm:text-sm transition">
                             <option value="">Semua Kategori</option>
                             @foreach($categories as $category)
                                 <option value="{{ $category->id }}" {{ request('category_id') == $category->id ? 'selected' : '' }}>{{ $category->name }}</option>
@@ -69,10 +69,10 @@
                     </div>
                     <div>
                         <label for="start_date" class="block text-sm font-medium text-gray-700 dark:text-gray-300">Mulai Tanggal</label>
-                        <input type="date" name="start_date" id="start_date" value="{{ request('start_date') }}" class="mt-1 block w-full rounded-xl border-gray-300 dark:border-gray-700 dark:bg-gray-900 dark:text-gray-300 shadow-sm focus:border-primary-500 focus:ring-primary-500 sm:text-sm transition">
+                        <input type="date" name="start_date" id="start_date" value="{{ request('start_date') }}" class="mt-1 block w-full rounded-xl border-gray-300 dark:border-gray-700 dark:bg-gray-900 dark:text-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 sm:text-sm transition">
                     </div>
                     <div class="flex items-end gap-2">
-                        <button type="submit" class="w-full bg-primary-600 hover:bg-primary-700 text-white font-bold py-2.5 px-4 rounded-xl shadow-sm transition">
+                        <button type="submit" class="w-full bg-blue-600 hover:bg-blue-700 text-white font-bold py-2.5 px-4 rounded-xl shadow-sm transition">
                             Filter
                         </button>
                         <a href="{{ route('transactions.index') }}" class="w-full text-center bg-gray-100 dark:bg-gray-700 hover:bg-gray-200 dark:hover:bg-gray-600 text-gray-700 dark:text-gray-200 font-bold py-2.5 px-4 rounded-xl transition">
@@ -190,9 +190,9 @@
                     {{ __('Batal') }}
                 </x-secondary-button>
 
-                <x-primary-button class="ml-3">
+                <x-blue-button class="ml-3">
                     {{ __('Simpan') }}
-                </x-primary-button>
+                </x-blue-button>
             </div>
         </form>
     </x-modal>

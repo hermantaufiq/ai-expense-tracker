@@ -3,7 +3,7 @@
         <div class="flex justify-between items-center">
             <h2 class="font-semibold text-xl text-gray-800 dark:text-gray-200 leading-tight">🎯 Target Menabung</h2>
             <button x-data="" x-on:click.prevent="$dispatch('open-modal', 'add-goal')"
-                class="inline-flex items-center gap-2 px-5 py-2.5 bg-primary-600 hover:bg-primary-700 text-white font-semibold rounded-xl shadow-sm hover:shadow-md transition text-sm">
+                class="inline-flex items-center gap-2 px-5 py-2.5 bg-blue-600 hover:bg-blue-700 text-white font-semibold rounded-xl shadow-sm hover:shadow-md transition text-sm">
                 <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6"/></svg>
                 Buat Target Baru
             </button>
@@ -26,7 +26,7 @@
                     <h3 class="text-xl font-bold text-gray-900 dark:text-gray-100 mb-2">Belum ada target menabung</h3>
                     <p class="text-gray-500 text-sm mb-6">Mulai buat target menabungmu sekarang — laptop baru, liburan, atau apapun impianmu!</p>
                     <button x-data="" x-on:click.prevent="$dispatch('open-modal', 'add-goal')"
-                        class="inline-flex items-center gap-2 px-6 py-3 bg-primary-600 hover:bg-primary-700 text-white font-semibold rounded-xl shadow-md transition-all hover:scale-105">
+                        class="inline-flex items-center gap-2 px-6 py-3 bg-blue-600 hover:bg-blue-700 text-white font-semibold rounded-xl shadow-md transition-all hover:scale-105">
                         🎯 Buat Target Pertama
                     </button>
                 </div>
@@ -75,7 +75,7 @@
                                     <span class="text-gray-400">Rp {{ number_format($goal->target_amount, 0, ',', '.') }}</span>
                                 </div>
                                 <div class="w-full bg-gray-100 dark:bg-gray-700 rounded-full h-3">
-                                    <div class="h-3 rounded-full bg-gradient-to-r from-primary-500 to-primary-700 transition-all duration-700"
+                                    <div class="h-3 rounded-full bg-gradient-to-r from-blue-500 to-blue-700 transition-all duration-700"
                                         style="width: {{ $pct }}%"></div>
                                 </div>
                             </div>
@@ -84,7 +84,7 @@
                             <div class="flex justify-between text-xs text-gray-500 dark:text-gray-400 mb-4">
                                 <span>Sisa: <strong class="text-gray-700 dark:text-gray-300">Rp {{ number_format($goal->remaining, 0, ',', '.') }}</strong></span>
                                 @if($monthlyNeeded)
-                                    <span>Nabung/bln: <strong class="text-primary-600 dark:text-primary-400">Rp {{ number_format($monthlyNeeded, 0, ',', '.') }}</strong></span>
+                                    <span>Nabung/bln: <strong class="text-blue-600 dark:text-blue-400">Rp {{ number_format($monthlyNeeded, 0, ',', '.') }}</strong></span>
                                 @endif
                             </div>
 
@@ -92,10 +92,10 @@
                             <form method="POST" action="{{ route('saving-goals.add-funds', $goal) }}" class="flex gap-2">
                                 @csrf
                                 <input type="number" name="amount" min="1000" step="1000" placeholder="Tambah dana (Rp)"
-                                    class="flex-1 rounded-xl border-gray-300 dark:border-gray-700 dark:bg-gray-900 dark:text-gray-300 text-sm shadow-sm focus:border-primary-500 focus:ring-primary-500 min-w-0"
+                                    class="flex-1 rounded-xl border-gray-300 dark:border-gray-700 dark:bg-gray-900 dark:text-gray-300 text-sm shadow-sm focus:border-blue-500 focus:ring-blue-500 min-w-0"
                                     required>
                                 <button type="submit"
-                                    class="px-5 py-2 bg-primary-600 hover:bg-primary-700 text-white font-semibold rounded-xl text-sm transition shadow-sm whitespace-nowrap">
+                                    class="px-5 py-2 bg-blue-600 hover:bg-blue-700 text-white font-semibold rounded-xl text-sm transition shadow-sm whitespace-nowrap">
                                     + Tabung
                                 </button>
                             </form>
@@ -179,7 +179,7 @@
 
             <div class="flex justify-end gap-3">
                 <x-secondary-button x-on:click="$dispatch('close')">Batal</x-secondary-button>
-                <x-primary-button>🎯 Buat Target</x-primary-button>
+                <x-blue-button>🎯 Buat Target</x-blue-button>
             </div>
         </form>
     </x-modal>
@@ -188,9 +188,9 @@
     function selectIcon(emoji) {
         document.getElementById('selected-icon').value = emoji;
         document.querySelectorAll('.icon-btn').forEach(btn => {
-            btn.classList.toggle('border-primary-500', btn.dataset.emoji === emoji);
-            btn.classList.toggle('bg-primary-50', btn.dataset.emoji === emoji);
-            btn.classList.toggle('dark:bg-primary-900/30', btn.dataset.emoji === emoji);
+            btn.classList.toggle('border-blue-500', btn.dataset.emoji === emoji);
+            btn.classList.toggle('bg-blue-50', btn.dataset.emoji === emoji);
+            btn.classList.toggle('dark:bg-blue-900/30', btn.dataset.emoji === emoji);
             btn.classList.toggle('border-gray-200', btn.dataset.emoji !== emoji);
             btn.classList.toggle('dark:border-gray-700', btn.dataset.emoji !== emoji);
         });

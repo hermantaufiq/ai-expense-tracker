@@ -4,7 +4,7 @@
             <h2 class="font-semibold text-xl text-gray-800 dark:text-gray-200 leading-tight">
                 Grup: {{ $group->name }}
             </h2>
-            <a href="{{ route('groups.index') }}" class="text-sm text-primary-600 dark:text-primary-400 hover:underline">&larr; Kembali</a>
+            <a href="{{ route('groups.index') }}" class="text-sm text-blue-600 dark:text-blue-400 hover:underline">&larr; Kembali</a>
         </div>
     </x-slot>
 
@@ -44,7 +44,7 @@
                         <div class="flex justify-between items-center mb-4">
                             <h3 class="font-bold text-gray-900 dark:text-white">Anggota ({{ $group->members->count() }})</h3>
                             @if($group->owner_id === auth()->id())
-                                <button x-data="" x-on:click.prevent="$dispatch('open-modal', 'invite-member')" class="text-xs text-primary-600 dark:text-primary-400 font-semibold hover:underline bg-primary-50 dark:bg-primary-900/30 px-2.5 py-1 rounded-md">+ Undang</button>
+                                <button x-data="" x-on:click.prevent="$dispatch('open-modal', 'invite-member')" class="text-xs text-blue-600 dark:text-blue-400 font-semibold hover:underline bg-blue-50 dark:bg-blue-900/30 px-2.5 py-1 rounded-md">+ Undang</button>
                             @endif
                         </div>
                         <ul class="space-y-3">
@@ -68,7 +68,7 @@
                     <div class="bg-white dark:bg-gray-800 rounded-2xl shadow-soft overflow-hidden">
                         <div class="p-6 border-b border-gray-100 dark:border-gray-700 flex justify-between items-center">
                             <h3 class="font-bold text-gray-900 dark:text-white">Transaksi Bersama</h3>
-                            <button x-data="" x-on:click.prevent="$dispatch('open-modal', 'add-group-trx')" class="px-4 py-2 bg-primary-600 text-white text-xs font-bold rounded-xl hover:bg-primary-700 transition shadow-sm">
+                            <button x-data="" x-on:click.prevent="$dispatch('open-modal', 'add-group-trx')" class="px-4 py-2 bg-blue-600 text-white text-xs font-bold rounded-xl hover:bg-blue-700 transition shadow-sm">
                                 + Catat Transaksi
                             </button>
                         </div>
@@ -125,7 +125,7 @@
 
             <div class="flex justify-end gap-3">
                 <x-secondary-button x-on:click="$dispatch('close')">Batal</x-secondary-button>
-                <x-primary-button>Undang</x-primary-button>
+                <x-blue-button>Undang</x-blue-button>
             </div>
         </form>
     </x-modal>
@@ -140,7 +140,7 @@
             <div class="space-y-4">
                 <div>
                     <x-input-label value="Kategori" />
-                    <select name="category_id" class="mt-1 block w-full rounded-xl border-gray-300 dark:border-gray-700 dark:bg-gray-900 dark:text-gray-300 shadow-sm focus:border-primary-500 focus:ring-primary-500 text-sm" required>
+                    <select name="category_id" class="mt-1 block w-full rounded-xl border-gray-300 dark:border-gray-700 dark:bg-gray-900 dark:text-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 text-sm" required>
                         <option value="">-- Pilih --</option>
                         @foreach($categories as $cat)
                             <option value="{{ $cat->id }}">{{ $cat->icon }} {{ $cat->name }} ({{ ucfirst($cat->type) }})</option>
@@ -166,7 +166,7 @@
 
             <div class="flex justify-end gap-3 mt-6">
                 <x-secondary-button x-on:click="$dispatch('close')">Batal</x-secondary-button>
-                <x-primary-button>Simpan Transaksi</x-primary-button>
+                <x-blue-button>Simpan Transaksi</x-blue-button>
             </div>
         </form>
     </x-modal>
