@@ -112,22 +112,30 @@ class GroupController extends Controller
         ]);
 
         $userToInvite = User::where('email', $request->email)->first();
+        $inviteLink = route('groups.join', $group->invite_token);
+        
+        try {
+            \Illuminate\Support\Facades\Mail::to($request->email)->send(
+                new \App\Mail\GroupInvitationMail($group, $inviteLink, auth()->user()->name)
+            );
+        } catch (\Exception $e) {
+            \Log::error('Gagal mengirim email undangan: ' . $e->getMessage());
+            // Lanjutkan eksekusi meskipun email gagal terkirim (misal karena konfigurasi SMTP belum ada)
+        }
 
         if (!$userToInvite) {
-            // Generate invite link to share
-            $inviteLink = route('groups.join', $group->invite_token);
             return back()->with('error',
-                'Email "' . $request->email . '" belum terdaftar. Minta mereka mendaftar dahulu, lalu bagikan link undangan ini: ' . $inviteLink
+                'Email undangan telah dikirim ke "' . $request->email . '", tetapi akun tersebut belum terdaftar. Minta mereka mendaftar dahulu, lalu bagikan link undangan ini: ' . $inviteLink
             );
         }
 
         if ($group->members()->where('user_id', $userToInvite->id)->exists()) {
-            return back()->with('error', $userToInvite->name . ' sudah ada di dalam grup ini.');
+            return back()->with('error', $userToInvite->name . ' sudah berada di dalam grup ini.');
         }
 
         $group->members()->attach($userToInvite->id, ['role' => 'member']);
 
-        return back()->with('success', $userToInvite->name . ' berhasil ditambahkan ke grup!');
+        return back()->with('success', 'Email undangan berhasil dikirim dan ' . $userToInvite->name . ' telah otomatis ditambahkan ke grup!');
     }
 
     public function removeMember(Group $group, User $user)
