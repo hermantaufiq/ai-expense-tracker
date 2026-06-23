@@ -50,6 +50,35 @@
                     </div>
                 </div>
             @endif
+
+            {{-- AI Chat Consultant Response --}}
+            @if(session('ai_chat_response'))
+                <div class="mb-6 bg-gradient-to-br from-indigo-500 to-purple-600 rounded-2xl shadow-lg overflow-hidden flex flex-col md:flex-row relative">
+                    <!-- Background Decoration -->
+                    <div class="absolute -top-24 -right-24 w-48 h-48 bg-white opacity-10 rounded-full blur-2xl"></div>
+                    <div class="absolute bottom-0 right-10 w-32 h-32 bg-purple-400 opacity-20 rounded-full blur-xl"></div>
+                    
+                    <div class="p-6 md:p-8 flex-1 relative z-10">
+                        <div class="flex items-center gap-3 mb-4">
+                            <div class="p-2 bg-white/20 backdrop-blur-sm rounded-lg shadow-sm">
+                                <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path></svg>
+                            </div>
+                            <h3 class="text-xl font-bold text-white">Saran AI Konsultan</h3>
+                        </div>
+                        <div class="prose prose-invert max-w-none prose-p:leading-relaxed prose-a:text-indigo-200 hover:prose-a:text-white prose-strong:text-white text-indigo-50">
+                            {!! Str::markdown(session('ai_chat_response')) !!}
+                        </div>
+                    </div>
+                    <div class="md:w-64 bg-black/10 backdrop-blur-md p-6 md:p-8 flex flex-col justify-center items-center text-center relative z-10 border-l border-white/10">
+                        <svg class="w-16 h-16 text-indigo-200/50 mb-4" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8zm-1-13h2v6h-2zm0 8h2v2h-2z"/></svg>
+                        <p class="text-sm font-medium text-indigo-100">Bukan Transaksi?</p>
+                        <p class="text-xs text-indigo-200 mt-1">Sistem mendeteksi ini sebagai pertanyaan, sehingga tidak dicatat sebagai pengeluaran/pemasukan.</p>
+                        <button x-data="" x-on:click.prevent="$dispatch('open-modal', 'add-ai-transaction')" class="mt-4 w-full px-4 py-2 bg-white text-indigo-600 font-bold text-sm rounded-xl hover:bg-indigo-50 transition shadow-sm">
+                            Tanya Lagi
+                        </button>
+                    </div>
+                </div>
+            @endif
             
             <!-- Filters & Search -->
             <div class="bg-white dark:bg-gray-800 rounded-2xl shadow-soft p-6 mb-6">

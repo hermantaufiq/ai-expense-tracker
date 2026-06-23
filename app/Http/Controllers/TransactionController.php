@@ -105,6 +105,12 @@ class TransactionController extends Controller
             return redirect()->back()->withErrors(['ai_prompt' => 'Gagal memproses teks. Pastikan GEMINI_API_KEY sudah di-set atau coba kalimat lain.']);
         }
 
+        // Cek intent
+        if (isset($parsed['intent']) && $parsed['intent'] === 'chat') {
+            return redirect()->back()->with('ai_chat_response', $parsed['message']);
+        }
+
+        // Asumsi fallback jika intent tidak ada namun format transaksi benar
         $categoryId = $parsed['category_id'] ?? null;
 
         if (!$categoryId && !empty($parsed['new_category_name'])) {
