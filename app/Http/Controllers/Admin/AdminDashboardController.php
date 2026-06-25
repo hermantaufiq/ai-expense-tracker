@@ -15,6 +15,10 @@ class AdminDashboardController extends Controller
         $premiumUsers = User::where('role', 'user')->where('is_premium', true)->count();
         $totalTransactions = Transaction::count();
 
-        return view('admin.dashboard', compact('totalUsers', 'premiumUsers', 'totalTransactions'));
+        return \Inertia\Inertia::render('Admin/Dashboard', [
+            'totalUsers' => $totalUsers,
+            'premiumUsers' => $premiumUsers,
+            'totalTransactions' => $totalTransactions
+        ]);
     }
 }

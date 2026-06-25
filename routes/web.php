@@ -55,7 +55,7 @@ Route::middleware('auth')->group(function () {
     Route::get('/groups/join/{token}', [\App\Http\Controllers\GroupController::class, 'joinViaLink'])->name('groups.join');
 });
 
-Route::middleware(['auth', 'is_admin'])->prefix('admin')->name('admin.')->group(function () {
+Route::middleware(['auth', 'is_admin', \App\Http\Middleware\HandleInertiaRequests::class])->prefix('admin')->name('admin.')->group(function () {
     Route::get('/dashboard', [App\Http\Controllers\Admin\AdminDashboardController::class, 'index'])->name('dashboard');
     Route::get('/users', [App\Http\Controllers\Admin\AdminUserController::class, 'index'])->name('users.index');
     Route::post('/users/{user}/toggle-ban', [App\Http\Controllers\Admin\AdminUserController::class, 'toggleBan'])->name('users.toggle-ban');
