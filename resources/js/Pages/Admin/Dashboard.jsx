@@ -1,8 +1,35 @@
-import React from 'react';
+import React, { useMemo } from 'react';
 import Sidebar from '../Components/Admin/Sidebar';
 import Navbar from '../Components/Admin/Navbar';
+import {
+  AreaChart, Area, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, BarChart, Bar, Legend
+} from 'recharts';
 
-export default function Dashboard() {
+export default function Dashboard({ totalUsers, premiumUsers, totalTransactions, totalExpense, chartData }) {
+    // Format currency
+    const formatCurrency = (amount) => {
+        return new Intl.NumberFormat('id-ID', { style: 'currency', currency: 'IDR', minimumFractionDigits: 0 }).format(amount);
+    };
+
+    // Prepare chart data
+    const months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+    
+    const expensesChart = useMemo(() => {
+        const data = Array.from({length: 12}, (_, i) => ({
+            name: months[i],
+            total: 0
+        }));
+        
+        if (chartData?.expenses) {
+            chartData.expenses.forEach(item => {
+                const monthIndex = parseInt(item.month) - 1;
+                if (monthIndex >= 0 && monthIndex < 12) {
+                    data[monthIndex].total = item.total;
+                }
+            });
+        }
+        return data;
+    }, [chartData]);
     return (
         <div className="min-h-screen bg-slate-50 flex">
             {/* Sidebar */}
@@ -39,10 +66,10 @@ export default function Dashboard() {
                                     </svg>
                                 </div>
                             </div>
-                            <div className="text-3xl font-bold text-slate-900">1,248</div>
+                            <div className="text-3xl font-bold text-slate-900">{totalUsers}</div>
                             <div className="mt-2 flex items-center text-sm text-emerald-600">
                                 <svg className="w-4 h-4 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M5 10l7-7m0 0l7 7m-7-7v18" /></svg>
-                                <span>12% from last month</span>
+                                <span>{premiumUsers} Premium Users</span>
                             </div>
                         </div>
 
@@ -55,26 +82,24 @@ export default function Dashboard() {
                                     </svg>
                                 </div>
                             </div>
-                            <div className="text-3xl font-bold text-slate-900">Rp 124.5M</div>
-                            <div className="mt-2 flex items-center text-sm text-emerald-600">
-                                <svg className="w-4 h-4 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M5 10l7-7m0 0l7 7m-7-7v18" /></svg>
-                                <span>8% from last month</span>
+                            <div className="text-3xl font-bold text-slate-900">{formatCurrency(totalExpense || 0)}</div>
+                            <div className="mt-2 flex items-center text-sm text-slate-500">
+                                <span>Across all users</span>
                             </div>
                         </div>
 
                         <div className="bg-white p-6 rounded-2xl border border-slate-200 shadow-sm">
                             <div className="flex items-center justify-between mb-4">
-                                <h3 className="text-slate-500 font-medium">Active Subscriptions</h3>
+                                <h3 className="text-slate-500 font-medium">Total Transactions</h3>
                                 <div className="w-10 h-10 rounded-full bg-amber-50 flex items-center justify-center text-amber-600">
                                     <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M3 10h18M7 15h1m4 0h1m-7 4h12a3 3 0 003-3V8a3 3 0 00-3-3H6a3 3 0 00-3 3v8a3 3 0 003 3z" />
                                     </svg>
                                 </div>
                             </div>
-                            <div className="text-3xl font-bold text-slate-900">342</div>
-                            <div className="mt-2 flex items-center text-sm text-emerald-600">
-                                <svg className="w-4 h-4 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M5 10l7-7m0 0l7 7m-7-7v18" /></svg>
-                                <span>24 new this week</span>
+                            <div className="text-3xl font-bold text-slate-900">{totalTransactions}</div>
+                            <div className="mt-2 flex items-center text-sm text-slate-500">
+                                <span>Recorded by all users</span>
                             </div>
                         </div>
 
@@ -91,6 +116,36 @@ export default function Dashboard() {
                             <div className="mt-2 flex items-center text-sm text-slate-500">
                                 All services running smoothly
                             </div>
+                        </div>
+                    </div>
+
+                    {/* Chart Section */}
+                    <div className="bg-white p-6 rounded-2xl border border-slate-200 shadow-sm mb-8">
+                        <h3 className="text-lg font-bold text-slate-900 mb-6">Expense Growth (Monthly)</h3>
+                        <div className="h-80 w-full">
+                            <ResponsiveContainer width="100%" height="100%">
+                                <AreaChart data={expensesChart}>
+                                    <defs>
+                                        <linearGradient id="colorTotal" x1="0" y1="0" x2="0" y2="1">
+                                            <stop offset="5%" stopColor="#6366f1" stopOpacity={0.3}/>
+                                            <stop offset="95%" stopColor="#6366f1" stopOpacity={0}/>
+                                        </linearGradient>
+                                    </defs>
+                                    <CartesianGrid strokeDasharray="3 3" vertical={false} stroke="#e2e8f0" />
+                                    <XAxis dataKey="name" axisLine={false} tickLine={false} tick={{fill: '#64748b'}} />
+                                    <YAxis 
+                                        axisLine={false} 
+                                        tickLine={false} 
+                                        tick={{fill: '#64748b'}} 
+                                        tickFormatter={(value) => `Rp ${value/1000000}M`}
+                                    />
+                                    <Tooltip 
+                                        formatter={(value) => [formatCurrency(value), "Total Expenses"]}
+                                        contentStyle={{borderRadius: '12px', border: 'none', boxShadow: '0 4px 6px -1px rgb(0 0 0 / 0.1)'}}
+                                    />
+                                    <Area type="monotone" dataKey="total" stroke="#6366f1" strokeWidth={3} fillOpacity={1} fill="url(#colorTotal)" />
+                                </AreaChart>
+                            </ResponsiveContainer>
                         </div>
                     </div>
                 </main>

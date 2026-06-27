@@ -14,11 +14,30 @@ class AdminDashboardController extends Controller
         $totalUsers = User::where('role', 'user')->count();
         $premiumUsers = User::where('role', 'user')->where('is_premium', true)->count();
         $totalTransactions = Transaction::count();
+        $totalExpense = Transaction::where('type', 'expense')->sum('amount');
+
+        // Data for charts
+        $usersPerMonth = User::where('role', 'user')
+            ->selectRaw('count(id) as count, strftime("%m", created_at) as month')
+            ->groupBy('month')
+            ->orderBy('month')
+            ->get();
+            
+        $transactionsPerMonth = Transaction::selectRaw('sum(amount) as total, strftime("%m", date) as month')
+            ->where('type', 'expense')
+            ->groupBy('month')
+            ->orderBy('month')
+            ->get();
 
         return \Inertia\Inertia::render('Admin/Dashboard', [
             'totalUsers' => $totalUsers,
             'premiumUsers' => $premiumUsers,
-            'totalTransactions' => $totalTransactions
+            'totalTransactions' => $totalTransactions,
+            'totalExpense' => $totalExpense,
+            'chartData' => [
+                'users' => $usersPerMonth,
+                'expenses' => $transactionsPerMonth
+            ]
         ]);
     }
 }

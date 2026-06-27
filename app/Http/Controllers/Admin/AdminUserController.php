@@ -10,8 +10,10 @@ class AdminUserController extends Controller
 {
     public function index()
     {
-        $users = User::where('role', 'user')->paginate(15);
-        return view('admin.users.index', compact('users'));
+        $users = User::where('role', 'user')->orderBy('created_at', 'desc')->get();
+        return \Inertia\Inertia::render('Admin/Users', [
+            'users' => $users
+        ]);
     }
 
     public function toggleBan(User $user)
